@@ -1,0 +1,10 @@
+{
+    "version": 2,
+    "name": "events",
+    "builds": [
+       { "src": "build/app.js", "use": "@vercel/node" }
+    ],
+    "routes": [
+       { "src": "/(.*)", "dest": "build/app.js" }
+    ]
+ }
