@@ -11,8 +11,8 @@ const __dirname = path.dirname(__filename);
 dotenv.config();
 
 const app = express();
-const port = 8080;
-const host = "localhost";
+const port = Number(process.env.PORT);
+const host = process.env.VERCEL_URL?.toString() || "";
 connectDB();
 app.use(
   cors({
