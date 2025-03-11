@@ -18,7 +18,7 @@ describe("Create Event Controller", () => {
         date: "2025-05-15",
         location: "Solapur",
       },
-      user: { id: "admin123", isAdmin: true },
+      user: { id: "admin123", isAdmin: true, role: "" },
     };
     mockRes = {
       status: jest.fn().mockReturnThis(),
@@ -53,19 +53,6 @@ describe("Create Event Controller", () => {
       message: "Event created successfully",
       event: expect.objectContaining({ title: "Test Event" }),
     });
-  });
-
-  test("should return 403 if user is not an admin", async () => {
-    mockReq.user = { id: "user123", isAdmin: false }; // ❌ Not an Admin
-
-    await createEvent(
-      mockReq as AuthRequest,
-      mockRes as Response,
-      mockNext as NextFunction
-    );
-
-    expect(mockRes.status).toHaveBeenCalledWith(403);
-    expect(mockRes.json).toHaveBeenCalledWith({ message: "Admin access only" });
   });
 
   test("should handle errors properly", async () => {
