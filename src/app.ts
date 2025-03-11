@@ -20,13 +20,14 @@ app.use(
   })
 );
 app.use(express.json());
+app.use("/api/auth", authRoutes);
+app.use("/api/events", eventRoutes);
+
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "build")));
   app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname, "build", "index.html"));
   });
 }
-app.use("/api/auth", authRoutes);
-app.use("/api/events", eventRoutes);
 
 app.listen(port, host, () => console.log(`Server running on port ${port}`));
