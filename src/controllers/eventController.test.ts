@@ -36,7 +36,6 @@ describe("Create Event Controller", () => {
       title: "Test Event",
     });
 
-    // ✅ Correctly mock Event model instance methods
     (Event as unknown as jest.Mock).mockImplementation(() => ({
       save: mockSave,
     }));

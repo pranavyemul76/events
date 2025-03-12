@@ -28,7 +28,6 @@ describe("Create Event Controller", () => {
             _id: "event123",
             title: "Test Event",
         });
-        // ✅ Correctly mock Event model instance methods
         Event.mockImplementation(() => ({
             save: mockSave,
         }));

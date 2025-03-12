@@ -34,6 +34,6 @@ export const createEvent = async (
 };
 
 export const getAllEvents = async (req: Request, res: Response) => {
-  const events = await Event.find();
+  const events = await Event.find().populate("organizer", "name").exec();
   res.status(200).json(events);
 };

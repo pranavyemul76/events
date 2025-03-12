@@ -4,20 +4,41 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 
 export const register = async (req: Request, res: Response) => {
-  const { name, email, password, isAdmin, role } = req.body;
+  const {
+    name,
+    email,
+    password,
+    isAdmin,
+    role,
+    phone,
+    address,
+    state,
+    district,
+    DOB,
+  } = req.body;
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
+    const userResult = await User.findOne({ email });
+    console.log("userResult", userResult);
+    if (userResult) {
+      res.status(404).json({ message: "user already exist" });
+    } else {
+      const user: IUser = new User({
+        name,
+        email,
+        password: hashedPassword,
+        isAdmin,
+        role,
+        phone,
+        address,
+        state,
+        district,
+        DOB,
+      });
+      await user.save();
 
-    const user: IUser = new User({
-      name,
-      email,
-      password: hashedPassword,
-      isAdmin,
-      role,
-    });
-    await user.save();
-
-    res.status(201).json({ message: "User registered successfully" });
+      res.status(201).json({ message: "User registered successfully" });
+    }
   } catch (error) {
     res.status(500).json({ message: error });
   }
